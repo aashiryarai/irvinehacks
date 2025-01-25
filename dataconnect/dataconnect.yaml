@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "irvinehacks"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "irvinehacks-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]
