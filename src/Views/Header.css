@@ -1,64 +1,59 @@
 /* General Styling */
-header {
-    background-color: #96c1f2; /* Tailwind gray-100 */
+.header-container {
+    background-color: #f9fafb; /* Light gray background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
 }
 
-header .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-/* Top Banner */
-header .top-banner {
-    background-color: #1e40af; /* Tailwind blue-700 */
-    color: white;
-    text-align: center;
-    padding: 0.5rem 0;
-    font-size: 0.875rem;
-}
-
-/* Navigation Links */
-header nav a {
-    font-size: 1rem;
-    text-decoration: none;
-    color: #4b5563; /* Tailwind gray-600 */
-    transition: color 0.3s;
-}
-
-header nav a:hover {
-    color: #1f2937; /* Tailwind gray-800 */
-}
-
-/* Search Bar */
-header .search-bar {
+.header-content {
     display: flex;
-    position: relative;
-    align-items: center;
+    justify-content: space-between; /* Ensure left and right content align on edges */
+    align-items: center; /* Vertically center items */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-header .search-bar input {
-    width: 24rem;
-    height: 3.5rem;
-    padding: 0.5rem 1.5rem;
-    border: 1px solid #d1d5db; /* Tailwind gray-300 */
-    border-radius: 9999px; /* Full rounded for pill shape */
+.header-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333; /* Dark text color */
+    margin-bottom: 1rem;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-input {
+    width: 300px;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db; /* Gray border */
+    border-radius: 9999px; /* Pill shape */
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-header .search-bar input:focus {
-    border-color: #3b82f6; /* Tailwind blue-500 */
+.search-input:focus {
+    border-color: #3b82f6; /* Blue border */
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
-header .search-bar button {
-    height: 3.5rem;
-    padding: 0 1.5rem;
+.search-button {
+    height: 40px;
+    padding: 0 1rem;
     border: none;
     border-radius: 9999px;
-    background-color: #3b82f6; /* Tailwind blue-500 */
+    background-color: #3b82f6; /* Blue background */
     color: white;
     display: flex;
     align-items: center;
@@ -67,30 +62,54 @@ header .search-bar button {
     transition: background-color 0.3s;
 }
 
-header .search-bar button:hover {
-    background-color: #2563eb; /* Tailwind blue-600 */
+.search-button:hover {
+    background-color: #2563eb; /* Darker blue */
 }
 
-/* Icons */
-header .icons {
+.header-right {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-header .icons button {
-    background: none;
-    border: 1px solid #d1d5db; /* Tailwind gray-300 */
-    padding: 0.75rem;
-    border-radius: 0.375rem;
-    cursor: pointer;
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+/* Recipe Result */
+.recipe-result {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.recipe-title {
     font-size: 1.5rem;
-    transition: border-color 0.3s, background-color 0.3s;
-    color: #4b5563; /* Tailwind gray-600 */
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
-header .icons button:hover {
-    border-color: #3b82f6; /* Tailwind blue-500 */
-    background-color: #f3f4f6; /* Tailwind gray-100 */
+.recipe-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cook-time {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.recipe-link {
+    font-size: 1rem;
+    color: #3b82f6;
+    text-decoration: underline;
 }
