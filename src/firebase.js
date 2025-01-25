@@ -7,13 +7,13 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDoV2u9jWTU1grDa_M7Jd67dSF0Y9DKK1M",
-  authDomain: "recipefinder-irvinehacks.firebaseapp.com",
-  projectId: "recipefinder-irvinehacks",
-  storageBucket: "recipefinder-irvinehacks.firebasestorage.app",
-  messagingSenderId: "14813484314",
-  appId: "1:14813484314:web:ea19cdb4e172442536c8a3",
-  measurementId: "G-LEYHZVG02M"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 // Initialize Firebase

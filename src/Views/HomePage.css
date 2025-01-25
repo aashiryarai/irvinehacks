@@ -1,0 +1,41 @@
+/* src/Views/HomePage.css */
+.cafe-homepage {
+    text-align: center;
+    padding: 50px;
+}
+
+.cafe-homepage h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.cafe-homepage p {
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.cafe-color-box {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.cafe-color-box.cafe-red {
+    background-color: red;
+}
+
+.cafe-color-box.cafe-blue {
+    background-color: blue;
+}
+
+.cafe-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cafe-button:hover {
+    background-color: #ddd;
+}
