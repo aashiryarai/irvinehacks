@@ -1,32 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
-import logo from './assets/images/images/logo512.png';
+import logo from './logo512.png';
 
 const Header = () => {
     const [ingredient, setIngredient] = useState('');
-    const [recipe, setRecipe] = useState(null);
+    const [recipes, setRecipes] = useState([]);
+    const [error, setError] = useState(''); // For error messages
+    const [hasSearched, setHasSearched] = useState(false); // Track if search has been performed
 
-    // Function to fetch the recipe from your backend
     const searchRecipe = async () => {
         if (!ingredient.trim()) {
             alert("Please enter an ingredient.");
             return;
         }
 
-        const url = `http://localhost:5000/api/recipes?ingredients=${ingredient}`; // Backend URL
+        // Clear previous errors and recipes before starting a new search
+        setError('');
+        setRecipes([]);
 
         try {
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data && data.title) {
-                setRecipe(data);
-            } else {
-                alert("No recipes found. Try another ingredient.");
+            const response = await fetch(`http://11.20.55.3:8000/api/recipes?ingredients=${ingredient}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch recipes.");
             }
+
+            const data = await response.json();
+            console.log("Fetched data:", data);
+
+            // Check the structure of the response and update recipes accordingly
+            if (data && Array.isArray(data.data)) {
+                setRecipes(data.data); // Assuming recipes are in data.data
+            } else if (Array.isArray(data)) {
+                setRecipes(data); // If the backend sends recipes as an array directly
+            } else {
+                setRecipes([]); // Fallback if the structure is unexpected
+            }
+
+            setHasSearched(true); // Indicate that a search has been performed
         } catch (error) {
-            console.error("Error fetching data:", error);
-            alert("There was an error fetching the recipe. Please try again later.");
+            console.error("Error fetching data:", error.message);
+            setError("There was an error fetching the recipes."); // Set error message
+            setHasSearched(true); // Indicate that a search was attempted
         }
     };
 
@@ -36,15 +50,19 @@ const Header = () => {
         }
     };
 
+    // Debug the recipes state
+    useEffect(() => {
+        console.log("Recipes state updated:", recipes);
+    }, [recipes]);
+
     return (
         <header className="header-container">
             <div className="header-content">
-                {/* Left Side: Title and Search Bar */}
+                {/* Search Bar Section */}
                 <div className="header-left">
                     <h1 className="header-title">Recipe Finder</h1>
                     <div className="search-bar">
                         <input
-                            id="ingredient-search"
                             type="text"
                             value={ingredient}
                             onChange={(e) => setIngredient(e.target.value)}
@@ -52,44 +70,44 @@ const Header = () => {
                             placeholder="Enter ingredients..."
                             className="search-input"
                         />
-                        <button
-                            id="search-button"
-                            onClick={searchRecipe}
-                            className="search-button"
-                        >
+                        <button onClick={searchRecipe} className="search-button">
                             <Search size={20} />
                         </button>
                     </div>
                 </div>
-
-                {/* Right Side: Logo */}
+                {/* Logo Section */}
                 <div className="header-right">
                     <img src={logo} alt="Recipe Finder Logo" className="logo" />
                 </div>
             </div>
 
-            {/* Recipe Result */}
-            {recipe && (
-                <div id="recipe-result" className="recipe-result">
-                    <h2 id="recipe-title" className="recipe-title">{recipe.title}</h2>
-                    <img
-                        id="recipe-image"
-                        src={recipe.image || 'placeholder-image-url.jpg'} // Add a placeholder if no image is provided
-                        alt={recipe.title}
-                        className="recipe-image"
-                    />
-                    <p id="cook-time" className="cook-time">
-                        Ready in {recipe.readyInMinutes || 'N/A'} minutes
-                    </p>
-                    <a
-                        id="recipe-link"
-                        href={recipe.sourceUrl || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="recipe-link"
-                    >
-                        View Full Recipe
-                    </a>
+            {/* Recipe List */}
+            {hasSearched && (
+                <div className="recipe-list">
+                    {/* Show error message if there is an error */}
+                    {error ? (
+                        <p className="error-message">{error}</p>
+                    ) : (
+                        // Show recipes if they exist
+                        recipes.length > 0 ? (
+                            recipes.map((recipe, index) => (
+                                <div key={index} className="recipe-card">
+                                    <h2>{recipe.Title}</h2>
+                                    {recipe.Image_Name && (
+                                        <img
+                                            src={recipe.Image_Name}
+                                            alt={recipe.Title}
+                                            className="recipe-image"
+                                        />
+                                    )}
+                                    <p>Ingredients: {recipe.Ingredients}</p>
+                                </div>
+                            ))
+                        ) : (
+                            // If no recipes and no error, show fallback message
+                            <p>No recipes found. Try entering different ingredients.</p>
+                        )
+                    )}
                 </div>
             )}
         </header>
